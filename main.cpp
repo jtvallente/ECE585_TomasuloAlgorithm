@@ -98,6 +98,53 @@ int main(){
     // Pack Instructions into vector
     vector<Instruction> Inst = {I0,I1,I2,I3,I4,I5,I6};
 
+    // ##### TEST CASES ###### //
+    // Test Case 1: Basic Functionality
+    // Instruction
+    //     I0(1, 2, 3, AddOp),   // ADD F1, F2, F3
+    //     I1(4, 5, 6, SubOp),   // SUB F4, F5, F6
+    //     I2(7, 8, 9, MultOp),  // MULT F7, F8, F9
+    //     I3(10, 11, 12, DivOp); // DIV F10, F11, F12
+    // vector<Instruction> Inst = {I0, I1, I2, I3};
+
+    // Test Case 2: Dependency Handling
+    // Instruction
+    //     I0(1, 2, 3, AddOp),     // ADD F1, F2, F3
+    //     I1(4, 1, 5, SubOp),     // SUB F4, F1, F5 (RAW hazard)
+    //     I2(1, 4, 6, MultOp),    // MULT F1, F4, F6 (WAW hazard)
+    //     I3(7, 1, 8, DivOp);     // DIV F7, F1, F8 (WAR hazard)
+
+    // Test Case 3: Resource Saturation
+    // Instruction
+    //     // Add/Sub Instructions (Num_ADD_RS = 4)
+    //     I0(1, 2, 3, AddOp),
+    //     I1(4, 5, 6, AddOp),
+    //     I2(7, 8, 9, AddOp),
+    //     I3(10, 11, 12, AddOp),
+    //     I4(13, 14, 15, AddOp),  // Should wait until a reservation station is free
+    //     // Multiply Instructions (Num_MULT_RS = 2)
+    //     I5(16, 17, 18, MultOp),
+    //     I6(19, 20, 21, MultOp),
+    //     I7(22, 23, 24, MultOp); // Should wait until a reservation station is free
+    // vector<Instruction> Inst = {I0, I1, I2, I3, I4, I5, I6, I7};
+
+    // Test Case 4: Execution Timing
+    // Instruction
+    //     I0(1, 2, 3, AddOp),    // ADD F1, F2, F3
+    //     I1(4, 5, 6, MultOp),   // MULT F4, F5, F6
+    //     I2(7, 1, 8, AddOp),    // ADD F7, F1, F8 (depends on I0)
+    //     I3(9, 4, 10, DivOp);   // DIV F9, F4, F10 (depends on I1)
+    // vector<Instruction> Inst = {I0, I1, I2, I3};
+    
+    // Test Case 5: Edge Cases
+    // Instruction
+    //     I0(1, 2, 3, DivOp),    // DIV F1, F2, F3
+    //     I1(4, 5, 0, DivOp),    // DIV F4, F5, F0 (Division by zero)
+    //     I2(6, 6, 7, AddOp),    // ADD F6, F6, F7 (Same destination and source)
+    //     I3(8, 9, 9, SubOp);    // SUB F8, F9, F9 (Same source registers)
+
+    // vector<Instruction> Inst = {I0, I1, I2, I3};
+
     //// Input reservation station architecture
     // DONT FORGET TO UPDATE ^
     // RESERVATION STATION NUMBERS

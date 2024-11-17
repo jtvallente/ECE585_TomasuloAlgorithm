@@ -1,0 +1,13 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "lldb",
+      "request": "launch",
+      "args": [],
+      "cwd": "/Users/macbookpro/Desktop/1STSEM2425/CMSC132/ECE585_TomasuloAlgorithm",
+      "program": "/Users/macbookpro/Desktop/1STSEM2425/CMSC132/ECE585_TomasuloAlgorithm/build/Debug/outDebug"
+    }
+  ]
+}
